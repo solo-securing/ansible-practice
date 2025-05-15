@@ -1,0 +1,12 @@
+---
+- name: Create deploy user
+  user:
+    name: deploy
+    password: $6$OYEU/K2gshcYID0e$uTOA4GTKWbrsKkwW.09glvXspv72LrVOSsjruPYMegbyxASzsSrFMPZdAhInz3RBHaaocjxQET2Kb/xlG6Jiu/
+    groups: 
+      - sudo
+    append: yes
+    shell: /bin/bash
+    create_home: yes
+    state: present
+  become: yes

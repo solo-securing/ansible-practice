@@ -1,0 +1,6 @@
+---
+- name: Start nginx # Called when receive notify by 'Install the nginx package' task
+  service:
+    name: nginx
+    state: started
+  become: yes

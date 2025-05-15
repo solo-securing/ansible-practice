@@ -1,0 +1,9 @@
+---
+- name: Copy file to managed node
+  copy:
+    src: my_file.txt
+    dest: /tmp/my_file.txt
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes

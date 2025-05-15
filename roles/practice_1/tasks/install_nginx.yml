@@ -1,0 +1,9 @@
+---
+- name: Install the nginx package
+  apt:
+    name: nginx
+    update_cache: true
+    state: present
+  become: yes
+  notify:
+    - Start nginx # Ensure the nginx service is running.

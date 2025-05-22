@@ -3,3 +3,5 @@
   hosts: all
   roles:
     - practice_1
+    - practice_2
+

@@ -1,0 +1,31 @@
+---
+- name: Create a backup directory - {{backup_dir}}
+  file:
+    path: "{{ backup_dir }}"
+    state: directory
+  become: yes
+
+- name: Find old log than {{ days_old }} file in {{ log_dir }}
+  find:
+    paths: "{{ log_dir }}"
+    patterns: "*.log"
+    age: 7d
+    file_type: file
+  register: log_files
+
+- name: Copy log files to {{backup_dir}}
+  copy:
+    src: "{{ item.path }}"
+    dest: "{{ backup_dir }}"
+    remote_src: yes
+  loop: "{{log_files.files}}"
+  when: log_files.matched > 0
+  become: yes
+
+- name: Remove original files from {{log_dir}}
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{log_files.files}}"
+  when: log_files.matched > 0
+  become: yes
